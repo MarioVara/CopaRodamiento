@@ -1,0 +1,55 @@
+<div id="imagen">
+    <img src="assets/images/titulo.png" alt="Logo Copa Rodamiento">
+</div>
+<div id="centrado">
+    <div id="separar">
+        <p>Elige una temporada</p>
+        <div class="col-12">
+            <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+            <select data-mdb-select-init class="select">
+                @for (temporada of temporadas; track temporada){
+                    <option value="{{temporada}}">{{temporada}}</option>
+                }
+          </select>
+        </div>
+    </div>
+    <div id="separar">
+        <p>Elige un circuito</p>
+        <div class="col-12">
+            <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+            <select data-mdb-select-init class="select">
+                @for(circuito of circuitos; track circuito){
+                    <option value="{{circuito}}">{{circuito}}</option>
+                }
+            </select>
+          </div>
+    </div>
+    <div class="col-12" id="separar">
+        <p>Ver la clasificación de pilotos</p>
+        <button data-mdb-ripple-init type="button" class="btn btn-primary">Ver</button>
+    </div>
+    <div class="col-12" id="separar">
+        <p>Ver la clasificación de equipos</p>
+        <button data-mdb-ripple-init type="button" class="btn btn-primary">Ver</button>
+    </div>
+    <div class="col-12" id="separar">
+        <p>Ver la clasificación del circuito</p>
+        <button data-mdb-ripple-init type="button" class="btn btn-primary">Ver</button>
+    </div>
+<form id="separar">
+    <!-- Usuario -->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <label class="form-label" for="form1Example1">Usuario</label>
+        <input type="text" id="form1Example1" class="form-control" />
+    </div>
+  
+    <!--Contraseña -->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <label class="form-label" for="form1Example2">Contraseña</label>
+        <input type="password" id="form1Example2" class="form-control" />
+    </div>
+ 
+    <!-- Submit button -->
+    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block">Sign in</button>
+</form>
+</div>

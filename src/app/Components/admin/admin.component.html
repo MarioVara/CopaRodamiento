@@ -1,0 +1,94 @@
+<p class='titulin' >Añadir</p>
+<div class="unicode">
+<div class="pequeno"><a routerLink="/addRes" ><i class="bi bi-book"></i></a><br>Añadir resultado<br></div>
+<div class="pequeno"><a routerLink="/addPil" ><i class="bi bi-person-plus-fill"></i></a><br>Añadir piloto<br></div>
+<div class="pequeno"><a routerLink="/addCirc" ><i class="bi bi-flag"></i></a><br>Añadir Circuito<br></div>
+<div class="pequeno"><a routerLink="/addTemp" ><i class="bi bi-calendar-plus"></i></a><br>Añadir Temporada<br></div>
+<div class="pequeno"><a routerLink="/addEqui" ><i class="bi bi-house-add"></i></a><br>Añadir Equipo<br></div>
+<div class="pequeno"><a routerLink="/equipar" class = "unicodito"><i class="bi bi-person-plus-fill"></i></a><br>Equipar<br></div>
+</div>
+<p class='titulin' >Ediciones</p>
+
+<!-- Editar un piloto -->
+<div class="uno">
+	<p class="subrayar">Editar equipos</p>
+		<form #equipo>
+
+		<p>Piloto: 
+			<select class="selectpicker" name="piloto" [(ngModel)]="idPiloto">
+				<option value="0" selected ></option>
+				@for(piloto of pilotos; track $index){
+			  	<option value="{{piloto.id}}">{{piloto.nombre}}</option>
+				}
+			</select>
+		<p>
+		<input type="submit" name="aceptar" value="Aceptar" (click)="editarPiloto(idPiloto)"></p>
+		</form>
+	</div>
+<!-- Editar un equipo -->
+	<div class="dos">
+		<p class="subrayar">Editar equipos</p>
+		<form #piloto>
+			<p>Piloto: 
+				<select class="selectpicker" name="pilotoEquipo" [(ngModel)]="idPilotoEquipo">
+					<option value="0" selected ></option>
+					@for(piloto of pilotos; track $index){
+					  <option value="{{piloto.id}}">{{piloto.nombre}}</option>
+					}
+				</select>
+			<p>
+			<p>Temporada: 
+				<select class="selectpicker" name="temporada" [(ngModel)]="idTemporada">
+					<option value="0" selected ></option>
+					@for(temporada of temporadas; track $index){
+					<option value="{{temporada.id}}">{{temporada.id}}</option>
+					}
+				</select>
+		
+			<p><input type="submit" name="aceptar" value="Aceptar" (click)="editarEquipo(idPilotoEquipo, idTemporada)"></p>
+		</form>
+	</div>
+	<br>
+<!-- Editar un circuito -->
+	<div class ="dos">
+	<p class="subrayar"> Editar Circuito</p>
+	<form #circuito>
+
+		<p>Selecciona el circuito: 
+			<select class="selectpicker" name="circuito" [(ngModel)]="idCircuito">
+				<option value="0" selected ></option>
+				@for(circuito of circuitos; track $index){
+				<option value="{{circuito.id}}">{{circuito.circuito}}</option>
+				}
+		</select>
+		
+		<p><input type="hidden" name="hacer" value="edci"></p>
+		<p><input type="submit" name="aceptar" value="Aceptar" (click)="editarCircuito(idCircuito)"></p>
+		</form>
+	</div>
+<!-- Editar un resultado -->
+	<div class = "uno">
+	<p class ="subrayar"> Editar Resultado </p>
+	<form #resultado>
+		<p>Temporada: 
+			<select class="selectpicker" name="temporadaRes" [(ngModel)]="idTemporadaRes">
+				<option value="0" selected ></option>
+				@for(temporada of temporadas; track $index){
+				<option value="{{temporada.id}}">{{temporada.id}}</option>
+				}
+			</select>
+			<p>Selecciona el circuito: 
+				<select class="selectpicker" name="circuitoRes" [(ngModel)]="idCircuitoRes">
+					<option value="0" selected ></option>
+					@for(circuito of circuitos; track $index){
+					<option value="{{circuito.id}}">{{circuito.circuito}}</option>
+					}
+			</select>
+			
+		<p><input type="submit" name="aceptar" value="Aceptar" (click)="editarResultado(idTemporadaRes, idCircuitoRes)"></p>
+	</form>
+	</div>
+
+<br>
+<br>
+<p><a routerLink="">Volver al inicio.</a>

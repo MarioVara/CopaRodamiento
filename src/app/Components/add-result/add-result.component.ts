@@ -4,6 +4,7 @@ import { SelectService } from '../../Services/select.service';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Circuito, Clasificacion, Piloto, Puntos, Registro, Temporada } from '../../Data/model';
 import { ListadosService } from '../../Services/crud.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class AddResultComponent implements OnInit {
   form: FormGroup;
 
   puntosSprint!:Puntos[];
-  sprint:boolean = true;
+  sprint!:boolean;
   puntos!:Puntos[];
   pole:boolean = false;
   vueltaRapida:boolean = false;
@@ -100,18 +101,25 @@ this.rellenarRegistro();
     this.puntosSprint = this.crud.getPuntuacionSprint();
   }
   onSubmit(filas:Registro[]){
+    if(this.temporada==0 || this.circuito=='' || this.sprint==undefined ){
+      Swal.fire({
+        title: "Algo va mal",
+        text: "Introduce el nombre y el pais",
+        icon: "error"
+      });  
+      }
+
+      else {this.crud.addResultado(filas);
+      Swal.fire({
+        title: "Perfect",
+        text: "Circuito guardado",
+        icon: "info"
+      });}
+      this.nombreCircuito = '';
+      this.pais = '';
+    }
     console.log(this.temporada, this.circuito, this.sprint)
     console.log(filas)
   }
-  //************NO FUNCIONA. Estaba intentando recoger los datos */
-  // resultado(): void{
-  //   console.log(this.temporada, this.circuito, this.sprint)
-  //   for(let clasificacion of this.clasificaciones){
-  //     if(this.piloto){
-  //       console.log(this.piloto)
-  //       console.log(clasificacion.posicion)
-  //       console.log(clasificacion.vueltaRapida)
-  //     }
-  //   }
-  // }
+
 }

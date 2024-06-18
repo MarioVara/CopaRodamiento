@@ -104,22 +104,19 @@ this.rellenarRegistro();
     if(this.temporada==0 || this.circuito=='' || this.sprint==undefined ){
       Swal.fire({
         title: "Algo va mal",
-        text: "Introduce el nombre y el pais",
+        text: "Introduce Temporada, Circuito y Sprint",
         icon: "error"
       });  
       }
 
-      else {this.crud.addResultado(filas);
+      else {this.crud.addResultado(this.filas);
       Swal.fire({
         title: "Perfect",
-        text: "Circuito guardado",
+        text: "Registro añadido",
         icon: "info"
-      });}
-      this.nombreCircuito = '';
-      this.pais = '';
-    }
-    console.log(this.temporada, this.circuito, this.sprint)
-    console.log(filas)
+      });
+      this.rellenarRegistro()}
   }
-
 }
+
+

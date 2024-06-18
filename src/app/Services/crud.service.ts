@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Circuito, Equipo, Piloto, Puntos, Temporada } from '../Data/model';
+import { Circuito, Equipo, Piloto, Puntos, Registro, Temporada } from '../Data/model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,10 @@ export class ListadosService {
     this.circuitos = ["Imola", "Cataluña", "Bahrein"];
     this.temporadas = ["1","2","2024"];
    }
-  añadirResultado(){
+   //Resiltados
 
+  addResultado(filas:Registro[]){
+    console.log(filas);
   }
 
   //Pilotos

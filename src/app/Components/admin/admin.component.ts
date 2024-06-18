@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ListadosService } from '../../Services/crud.service';
 import { Circuito, Equipo, Piloto, Temporada } from '../../Data/model';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ idCircuito:number = 0;
 idCircuitoRes:number=0;
 idEquipo:number = 0;
 
-  constructor(private crud:ListadosService){}
+  constructor(private crud:ListadosService, private route:Router){}
 
   ngOnInit(): void {
     this.circuitos = this.crud.getCircuitos();
@@ -34,18 +34,21 @@ idEquipo:number = 0;
     this.equipos = this.crud.getEquipos();
   }
   editarPiloto(idPiloto:number){
+    this.route.navigate([`/editPil/${idPiloto}`]);
     console.log(idPiloto);
   }
 
   editarEquipo(idEquipo:number, idTemporada:number){
-    console.log(idEquipo, idTemporada)
+    this.route.navigate([`/editEqui/${idEquipo}/${idTemporada}`]);
+    console.log(idEquipo, idTemporada);
   }
 
   editarCircuito(idCircuito:number){
-    console.log(idCircuito)
+    this.route.navigate([`/editCirc/${idCircuito}`]);
+    console.log(idCircuito);
   }
 
   editarResultado(idTemporada:number, idCircuito:number){
-    console.log(idTemporada, idCircuito)
+    console.log(idTemporada, idCircuito);
   }
 }

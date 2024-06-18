@@ -7,6 +7,11 @@ import { AddCircComponent } from './Components/add-circ/add-circ.component';
 import { AddTempComponent } from './Components/add-temp/add-temp.component';
 import { AddEquiComponent } from './Components/add-equi/add-equi.component';
 import { EquiparComponent } from './Components/equipar/equipar.component';
+import { EditCircComponent } from './Components/ediciones/edit-circ/edit-circ.component';
+import { EditEquiComponent } from './Components/ediciones/edit-equi/edit-equi.component';
+import { EditPilComponent } from './Components/ediciones/edit-pil/edit-pil.component';
+import { EditResComponent } from './Components/ediciones/edit-res/edit-res.component';
+import { EditPuntoComponent } from './Components/ediciones/edit-punto/edit-punto.component';
 
 
 export const routes: Routes = [
@@ -17,5 +22,10 @@ export const routes: Routes = [
     {path: 'addCirc', component:AddCircComponent},
     {path: 'addTemp', component:AddTempComponent},
     {path: 'addEqui', component:AddEquiComponent},
-    {path: 'equipar', component:EquiparComponent}
+    {path: 'equipar', component:EquiparComponent},
+    {path: 'editCirc/:idCirc', component:EditCircComponent},
+    {path: 'editEqui/:idPil/:idTemp', component:EditEquiComponent},
+    {path: 'editPil/:idPil', component:EditPilComponent},
+    {path: 'editRes/:idCir/:idTemp', component:EditResComponent},
+    {path: 'editPunt', component:EditPuntoComponent}
 ];

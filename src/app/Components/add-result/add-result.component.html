@@ -1,4 +1,4 @@
-<form #nuevaClasificacionTemporada="ngForm">
+<form>
     <input type="hidden" name="hacer" value="anre">
     <p>Temporada: 
         <select name="temporada" [(ngModel)]="temporada" required >
@@ -21,7 +21,7 @@
 </form>
 
 
-<form [formGroup]="form">
+<form>
     <table ><tr>
     <th>Piloto</th>
     <th>Posicion</th>
@@ -32,26 +32,26 @@
     <th>Tiempo de Sanción</th>
 
     </tr>
-    @for(filita of filas; track fila; ){
+    @for(filita of filas; track $index;){
     <tr>
-    <td> <select formControlName="piloto{{$index+1}}" name="piloto{{$index+1}}">
+    <td> <select name="piloto{{$index}}" [(ngModel)]="filita.piloto">
                 <option value="null" selected disabled>Selecciona Piloto</option>
             @for(piloto of pilotos; track piloto){
-                <option [(ngModel)]="piloto.id" [value]="piloto.id"> {{piloto.nombre}} </option>
+                <option [value]="piloto.id"> {{piloto.nombre}} </option>
             }
         </select>
     </td>
     <!-- Creo que todo esto tiene que ir en un NgModel -->
     <td><input type="number"  id="posicion{{$index+1}}" value="{{filita.posicion}}" name="posicion{{$index+1}}" [(ngModel)]="filita.posicion" disabled></td>
-    <td><input type="number" value="{{filita.puntos}}" name="puntos{{$index+1}}" [(ngModel)]="puntos"></td>
-    <td><select name="pole{{$index+1}}" [(ngModel)]="pole"> <option value="FALSE">No</option><option value="TRUE">Si</option></select></td>
-    <td><select name="vuelta_rapida{{$index+1}}" [(ngModel)]="vueltaRapida" ><option value="FALSE">No</option><option value="TRUE">Si</option></select></td>
-    <td><input type="number" value="{{filita.puntosSprint}}" name="puntos_sprint{{$index+1}}" [(ngModel)]="puntosSprint"></td>
-    <td><input type="number" value="0" name="sancion{{$index+1}}" [(ngModel)]="sancion"></td>
+    <td><input type="number" value="{{filita.puntos}}" name="puntos{{$index+1}}" [(ngModel)]="filita.puntos"></td>
+    <td><select name="pole{{$index+1}}" [(ngModel)]="filita.pole"> <option value="FALSE">No</option><option value="TRUE">Si</option></select></td>
+    <td><select name="vuelta_rapida{{$index+1}}" [(ngModel)]="filita.vueltaRapida" ><option value="FALSE">No</option><option value="TRUE">Si</option></select></td>
+    <td><input type="number" value="{{filita.puntosSprint}}" name="puntos_sprint{{$index+1}}" [(ngModel)]="filita.puntosSprint"></td>
+    <td><input type="number" value="0" name="sancion{{$index+1}}" [(ngModel)]="filita.sancion"></td>
     </tr>
     }
 </table>
-        <button (click)="onSubmit()">Añadir</button>
+        <button (click)="onSubmit(filas)">Añadir</button>
             </form>
 <p></p>
 

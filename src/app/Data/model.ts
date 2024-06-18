@@ -119,6 +119,14 @@ export class Temporada{
         this.id = id;
     }
 }
+export class Puntos{
+  posicion:number;
+  puntos:number;
+  constructor(posicion: number, puntos: number) {
+    this.posicion = posicion
+    this.puntos = puntos
+  }  
+}
 export interface Registro{
     posicion:number;
     piloto: number;

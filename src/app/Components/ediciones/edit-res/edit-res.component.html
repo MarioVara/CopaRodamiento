@@ -1,19 +1,7 @@
 <form>
     <input type="hidden" name="hacer" value="anre">
-    <p>Temporada: 
-        <select name="temporada" [(ngModel)]="temporada" required >
-        <option value="null" selected disabled></option>
-            @for(temporada of temporadas; track $index){
-                <option value="{{temporada.id}}"> {{temporada.id}}</option>
-            }
-        </select>
-    <p>Circuito: 
-        <select name="circuito" [(ngModel)]="circuito" >
-            <option value="" selected disabled></option>
-        @for(circuito of circuitos; track $index){
-            <option value="{{circuito.id}}"> {{circuito.circuito}}</option>
-        }
-    </select>
+    <p>Temporada: {{temporada}}
+    <p >Circuito: {{circuito.circuito}} </p>
     <p>Sprint?: <select name="sprint" [(ngModel)]="sprint">
         <option value="FALSE">No</option>
         <option value="TRUE">Si</option>

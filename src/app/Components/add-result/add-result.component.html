@@ -37,7 +37,7 @@
     <td> <select name="piloto{{$index}}" [(ngModel)]="filita.piloto">
                 <option value="null" selected disabled>Selecciona Piloto</option>
             @for(piloto of pilotos; track piloto){
-                <option [value]="piloto.id"> {{piloto.nombre}} </option>
+                <option [value]="piloto"> {{piloto.nombre}} </option>
             }
         </select>
     </td>
@@ -51,7 +51,7 @@
     </tr>
     }
 </table>
-        <button (click)="onSubmit(filas)">Añadir</button>
+        <button (click)="onSubmit(filas, temporada, circuito)">Añadir</button>
             </form>
 <p></p>
 

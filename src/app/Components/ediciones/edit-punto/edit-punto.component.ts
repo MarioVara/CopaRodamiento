@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Puntos } from '../../../Data/model';
 import { ListadosService } from '../../../Services/crud.service';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-edit-punto',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './edit-punto.component.html',
   styleUrl: './edit-punto.component.css'
 })

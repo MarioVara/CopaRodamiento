@@ -1,20 +1,23 @@
  export class Clasificacion {
-     piloto:string;
+     piloto: Piloto;
      posicion: number;
      puntos: number;
      pole: boolean;
      vueltaRapida:boolean;
      puntosSprint:number;
      sancion:number;
-
-  constructor(piloto: string, posicion: number, puntos: number, pole: boolean, vueltaRapida: boolean, puntosSprint: number, sancion: number) {
-     this.piloto = piloto
-     this.posicion = posicion
-     this.puntos = puntos
-     this.pole = pole
-     this.vueltaRapida = vueltaRapida
-     this.puntosSprint = puntosSprint
-     this.sancion = sancion
+     temporada:Temporada;
+     circuito:Circuito;
+  constructor(piloto: Piloto, posicion: number, puntos: number, pole: boolean, vueltaRapida: boolean, puntosSprint: number, sancion: number, temporada:Temporada, circuito:Circuito) {
+     this.piloto = piloto;
+     this.posicion = posicion;
+     this.puntos = puntos;
+     this.pole = pole;
+     this.vueltaRapida = vueltaRapida;
+     this.puntosSprint = puntosSprint;
+     this.sancion = sancion;
+     this.temporada = temporada;
+     this.circuito = circuito;
    }
  }
 export class Piloto {
@@ -129,20 +132,10 @@ export class Puntos{
 }
 export interface Registro{
     posicion:number;
-    piloto: number;
+    piloto: Piloto[];
     puntos: number;
     pole:boolean;
     vueltaRapida: boolean;
     puntosSprint: number;
-    sancion: number;
-  // constructor(posicion: number, piloto: string, puntos: number, pole: boolean, vueltaRapida: boolean, puntosSprint: number, sancion: number) {
-  //   this.posicion = posicion
-  //   this.piloto = piloto
-  //   this.puntos = puntos
-  //   this.pole = pole
-  //   this.vueltaRapida = vueltaRapida
-  //   this.puntosSprint = puntosSprint
-  //   this.sancion = sancion
-  // }    
-
+    sancion: number; 
 }

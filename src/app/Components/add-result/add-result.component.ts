@@ -20,7 +20,7 @@ export class AddResultComponent implements OnInit {
   piloto:Piloto | undefined;
 
   circuitos:Circuito[] = [];
-  circuito:string = '';
+  circuito!:Circuito;
 
   temporada:number = 0;
   temporadas:Temporada[] = [];
@@ -54,16 +54,16 @@ this.getTemporadas();
 this.getPuntos();
 this.getPuntosSprint();
 this.initClasificaciones();
-this.rellenarRegistro();
+this.rellenarFilas();
 
 }
-  rellenarRegistro(){
+  rellenarFilas(){
     for(let i = 0; i<20; i++){
       this.filas.push({
         posicion: i+1,
         puntosSprint: this.puntosSprint[i].puntos,
         puntos: this.puntos[i].puntos,
-        piloto: this.pilotoId,
+        piloto: this.pilotos,
         pole: false,
         vueltaRapida: false,
         sancion:0
@@ -85,7 +85,7 @@ this.rellenarRegistro();
   }
   initClasificaciones() {
     this.filas.forEach(() => {
-      this.clasificaciones.push(new Clasificacion('', 0, 0, false, false, 0, 0));
+      this.clasificaciones.push(new Clasificacion(new Piloto(0, '',''), 0, 0, false, false, 0, 0, new Temporada(0), new Circuito(0, '', '')));
     });
   }
   getTemporadas(){
@@ -100,8 +100,8 @@ this.rellenarRegistro();
   getPuntosSprint(){
     this.puntosSprint = this.crud.getPuntuacionSprint();
   }
-  onSubmit(filas:Registro[]){
-    if(this.temporada==0 || this.circuito=='' || this.sprint==undefined ){
+  onSubmit(filas:Registro[], temporada:number, circuito:Circuito){
+    if(this.temporada==0 || this.circuito.id==0 || this.sprint==undefined ){
       Swal.fire({
         title: "Algo va mal",
         text: "Introduce Temporada, Circuito y Sprint",
@@ -115,7 +115,7 @@ this.rellenarRegistro();
         text: "Registro añadido",
         icon: "info"
       });
-      this.rellenarRegistro()}
+      }
   }
 }
 

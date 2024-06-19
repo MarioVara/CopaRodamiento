@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { SelectService } from '../../../Services/select.service';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Circuito, Clasificacion, Piloto, Puntos, Registro, Temporada } from '../../../Data/model';
@@ -19,7 +19,8 @@ export class EditResComponent implements OnInit{
   piloto:Piloto | undefined;
 
   circuitos:Circuito[] = [];
-  circuito:string = '';
+  circuito!:Circuito;
+  circuitoId:number =0;
 
   temporada:number = 0;
   temporadas:Temporada[] = [];
@@ -38,16 +39,17 @@ export class EditResComponent implements OnInit{
   
   sancion:number = 0;
   
-  constructor (private select:SelectService,private crud:ListadosService, private fb:FormBuilder){ 
+  constructor (private select:SelectService, private crud:ListadosService, private fb:FormBuilder, private route: ActivatedRoute){ 
     this.form = this.fb.group({
       filas: this.fb.array([])
     });
   }
   
   ngOnInit() {
-  
+  this.route.params.subscribe(param => {this.circuitoId = param['idCir'], this.temporada = param['idTemp']});
+
   this.getPilotos();
-  this.getCircuitos();
+  this.getCircuito(this.circuitoId);
   this.getTemporadas();
   this.getPuntos();
   this.getPuntosSprint();
@@ -56,41 +58,21 @@ export class EditResComponent implements OnInit{
   
   }
     rellenarRegistro(){
-      for(let i = 0; i<20; i++){
-        this.filas.push({
-          posicion: i+1,
-          puntosSprint: this.puntosSprint[i].puntos,
-          puntos: this.puntos[i].puntos,
-          piloto: this.pilotoId,
-          pole: false,
-          vueltaRapida: false,
-          sancion:0
-        });
-        (this.form.get('filas') as FormArray).push(this.fb.group({
-          posicion: i + 1,
-          puntosSprint: this.puntosSprint[i].puntos,
-          puntos: this.puntos[i].puntos,
-          piloto: [''],
-          pole: [false],
-          vueltaRapida: [false],
-          sancion: [0]
-        }));
-  
-      }
+      //this.filas = this.crud.getResultado(this.circuitoId, this.temporada);
     }
     getPilotos(){
       this.pilotos = this.select.getPilotos();
     }
     initClasificaciones() {
       this.filas.forEach(() => {
-        this.clasificaciones.push(new Clasificacion('', 0, 0, false, false, 0, 0));
+       // this.clasificaciones.push(new Clasificacion('', 0, 0, false, false, 0, 0));
       });
     }
     getTemporadas(){
       this.temporadas = this.select.getTemporadas();
     }
-    getCircuitos(){
-      this.circuitos = this.select.getCircuitos();
+    getCircuito(circuitoId:number){
+      this.circuito = this.crud.getCircuito(circuitoId);
     }
     getPuntos(){
       this.puntos = this.crud.getPuntuacionCarrera();
@@ -99,7 +81,7 @@ export class EditResComponent implements OnInit{
       this.puntosSprint = this.crud.getPuntuacionSprint();
     }
     onSubmit(filas:Registro[]){
-      if(this.temporada==0 || this.circuito=='' || this.sprint==undefined ){
+      if(this.temporada==0 || this.circuito.circuito=='' || this.sprint==undefined ){
         Swal.fire({
           title: "Algo va mal",
           text: "Introduce Temporada, Circuito y Sprint",

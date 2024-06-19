@@ -13,11 +13,376 @@ export class ListadosService {
     this.circuitos = ["Imola", "Cataluña", "Bahrein"];
     this.temporadas = ["1","2","2024"];
    }
-   //Resiltados
+   //Resultados
 
   addResultado(filas:Registro[]){
     console.log(filas);
   }
+  // getResultado(circuitoId:number, temporada:number){
+  //   const resultado:Registro[] = [
+  //     {
+  //         "posicion": 1,
+  //         "puntosSprint": 8,
+  //         "puntos": 25,
+  //         "piloto": 1,
+  //         "pole": false,
+  //         "vueltaRapida": true,
+  //         "sancion": 2
+  //     },
+  //     {
+  //         "posicion": 2,
+  //         "puntosSprint": 7,
+  //         "puntos": 18,
+  //         "piloto": 2,
+  //         "pole": true,
+  //         "vueltaRapida": false,
+  //         "sancion": 3
+  //     },
+  //     {
+  //         "posicion": 3,
+  //         "puntosSprint": 6,
+  //         "puntos": 15,
+  //         "piloto": 3,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 4
+  //     },
+  //     {
+  //         "posicion": 4,
+  //         "puntosSprint": 5,
+  //         "puntos": 12,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 5,
+  //         "puntosSprint": 4,
+  //         "puntos": 10,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 6,
+  //         "puntosSprint": 3,
+  //         "puntos": 8,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 7,
+  //         "puntosSprint": 2,
+  //         "puntos": 6,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 8,
+  //         "puntosSprint": 1,
+  //         "puntos": 4,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 9,
+  //         "puntosSprint": 0,
+  //         "puntos": 2,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 10,
+  //         "puntosSprint": 0,
+  //         "puntos": 1,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 11,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 12,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 13,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 14,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 15,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 16,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 17,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 18,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 19,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 20,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 1,
+  //         "puntosSprint": 8,
+  //         "puntos": 25,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 2,
+  //         "puntosSprint": 7,
+  //         "puntos": 18,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 3,
+  //         "puntosSprint": 6,
+  //         "puntos": 15,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 4,
+  //         "puntosSprint": 5,
+  //         "puntos": 12,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 5,
+  //         "puntosSprint": 4,
+  //         "puntos": 10,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 6,
+  //         "puntosSprint": 3,
+  //         "puntos": 8,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 7,
+  //         "puntosSprint": 2,
+  //         "puntos": 6,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 8,
+  //         "puntosSprint": 1,
+  //         "puntos": 4,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 9,
+  //         "puntosSprint": 0,
+  //         "puntos": 2,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 10,
+  //         "puntosSprint": 0,
+  //         "puntos": 1,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 11,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 12,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 13,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 14,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 15,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 16,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 17,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 18,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 19,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     },
+  //     {
+  //         "posicion": 20,
+  //         "puntosSprint": 0,
+  //         "puntos": 0,
+  //         "piloto": 0,
+  //         "pole": false,
+  //         "vueltaRapida": false,
+  //         "sancion": 0
+  //     }
+  // ]
+  // return resultado;
+  // }
 
   //Pilotos
   guardarPiloto(nombre:string, nickname:string){

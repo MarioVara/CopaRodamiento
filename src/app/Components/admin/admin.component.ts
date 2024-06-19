@@ -49,6 +49,7 @@ idEquipo:number = 0;
   }
 
   editarResultado(idTemporada:number, idCircuito:number){
+    this.route.navigate([`/editRes/${idCircuito}/${idTemporada}`]);
     console.log(idTemporada, idCircuito);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ListadosService } from '../../../Services/crud.service';
+import { crudService } from '../../../Services/crud.service';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { FormsModule, NgModel } from '@angular/forms';
 import { Circuito } from '../../../Data/model';
@@ -13,16 +13,15 @@ import { Circuito } from '../../../Data/model';
 })
 export class EditCircComponent implements OnInit{
   circuitoId:number = 0;
-  circuito:string = '';
+  circuito!:Circuito;
   pais:string = '';
   elCircuito!: Circuito;
 
-  constructor(private crud:ListadosService, private route:ActivatedRoute ){}
+  constructor(private crud:crudService, private route:ActivatedRoute ){}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => this.circuitoId = params['idCirc']);
-    this.elCircuito = this.crud.getCircuito(this.circuitoId);
-    this.circuito = this.elCircuito.circuito
+    this.crud.getCircuito(this.circuitoId).subscribe(result =>{this.circuito = result});
     this.pais = this.elCircuito.pais;
   }
   

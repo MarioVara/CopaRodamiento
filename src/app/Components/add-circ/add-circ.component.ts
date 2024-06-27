@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ListadosService } from '../../Services/crud.service';
+import { crudService } from '../../Services/crud.service';
 import Swal from 'sweetalert2';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -17,7 +17,7 @@ export class AddCircComponent implements OnInit{
   nombreCircuito:string = '';
   pais:string = '';
   
-  constructor(private crud:ListadosService){}
+  constructor(private crud:crudService){}
     ngOnInit(): void {
       
     }
@@ -31,11 +31,13 @@ export class AddCircComponent implements OnInit{
       });  
       }
 
-      else {this.crud.guardarCircuito(this.nombreCircuito, this.pais);
-      Swal.fire({
-        title: "Perfect",
-        text: "Circuito guardado",
-        icon: "info"
+      else {
+        console.log(this.nombreCircuito, this.pais)
+        this.crud.addCircuito(this.nombreCircuito, this.pais);
+        Swal.fire({
+          title: "Perfect",
+          text: "Circuito guardado",
+          icon: "info"
       });}
       this.nombreCircuito = '';
       this.pais = '';

@@ -1,23 +1,27 @@
  export class Clasificacion {
+     id:number;
      piloto: Piloto;
      posicion: number;
      puntos: number;
      pole: boolean;
      vueltaRapida:boolean;
+     sprint:boolean;
      puntosSprint:number;
      sancion:number;
      temporada:Temporada;
-     circuito:Circuito;
-  constructor(piloto: Piloto, posicion: number, puntos: number, pole: boolean, vueltaRapida: boolean, puntosSprint: number, sancion: number, temporada:Temporada, circuito:Circuito) {
+     carrera:Circuito;
+  constructor(id:number, piloto: Piloto, posicion: number, puntos: number, pole: boolean, vueltaRapida: boolean, sprint:boolean, puntosSprint: number, sancion: number, temporada:Temporada, carrera:Circuito) {
+     this.id = id;
      this.piloto = piloto;
      this.posicion = posicion;
      this.puntos = puntos;
      this.pole = pole;
      this.vueltaRapida = vueltaRapida;
+     this.sprint = sprint;
      this.puntosSprint = puntosSprint;
      this.sancion = sancion;
      this.temporada = temporada;
-     this.circuito = circuito;
+     this.carrera = carrera;
    }
  }
 export class Piloto {
@@ -81,31 +85,31 @@ export class Carrera{
 export class ClasificacionPiloto{
     piloto:Piloto;
     temporada:Temporada;
-    totalPuntos:number;
-    totalRapidas:number;
-    totalPoles:number;
-  constructor(piloto: Piloto, temporada: Temporada, totalPuntos: number, totalRapidas: number, totalPoles: number) {
+    total_puntos:number;
+    total_rapidas:number;
+    total_poles:number;
+  constructor(piloto: Piloto, temporada: Temporada, total_puntos: number, total_rapidas: number, total_poles: number) {
     this.piloto = piloto
     this.temporada = temporada
-    this.totalPuntos = totalPuntos
-    this.totalRapidas = totalRapidas
-    this.totalPoles = totalPoles
+    this.total_puntos = total_puntos
+    this.total_rapidas = total_rapidas
+    this.total_poles = total_poles
   }    
 }
 export class ClasificacionEquipos{
     idClasificacion:number;
     equipo:Equipo;
     temporada:Temporada;
-    totalPoles:number;
-    totalRapidas:number;
-    totalPuntos:number;
-  constructor(idClasificacion: number, equipo: Equipo, temporada: Temporada, totalPoles: number, totalRapidas: number, totalPuntos: number) {
+    total_poles:number;
+    vueltas_rapidas:number;
+    puntos:number;
+  constructor(idClasificacion: number, equipo: Equipo, temporada: Temporada, total_poles: number, vueltas_rapidas: number, puntos: number) {
     this.idClasificacion = idClasificacion
     this.equipo = equipo
     this.temporada = temporada
-    this.totalPoles = totalPoles
-    this.totalRapidas = totalRapidas
-    this.totalPuntos = totalPuntos
+    this.total_poles = total_poles
+    this.vueltas_rapidas = vueltas_rapidas
+    this.puntos = puntos
   }    
 }
 export class Equipo {
@@ -125,9 +129,11 @@ export class Temporada{
 export class Puntos{
   posicion:number;
   puntos:number;
-  constructor(posicion: number, puntos: number) {
+  puntos_sprint:number;
+  constructor(posicion: number, puntos: number, puntos_sprint:number) {
     this.posicion = posicion
     this.puntos = puntos
+    this.puntos_sprint = puntos_sprint;
   }  
 }
 export interface Registro{

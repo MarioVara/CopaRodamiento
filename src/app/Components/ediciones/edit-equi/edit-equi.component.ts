@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-import { ListadosService } from '../../../Services/crud.service';
+import { crudService } from '../../../Services/crud.service';
 import { Equipo, Piloto } from '../../../Data/model';
 
 @Component({
@@ -18,13 +18,13 @@ export class EditEquiComponent implements OnInit {
   piloto!:Piloto;
   equipos:Equipo[] = [];
 
-  constructor(private crud:ListadosService, private route:ActivatedRoute){}
+  constructor(private crud:crudService, private route:ActivatedRoute){}
   
 
   ngOnInit(): void {
     this.route.params.subscribe(param => {this.pilotoId = param['idPil'], this.temporadaId = param['idTemp']});
-    this.piloto =this.crud.getPiloto(this.pilotoId);
-    this.equipos = this.crud.getEquipos();
+    this.crud.getPiloto(this.pilotoId).subscribe(result => {this.piloto = result});
+    this.crud.getEquipos().subscribe(result =>{this.equipos=result});
   }
   editarEquipo(equipoId:number){
     this.crud.editarEquipo(this.pilotoId, this.temporadaId, equipoId);

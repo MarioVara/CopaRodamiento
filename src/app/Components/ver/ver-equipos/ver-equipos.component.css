@@ -1,0 +1,10 @@
+#headDiv{
+    text-align: center;
+}
+
+#theTable{
+    position: relative;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+}

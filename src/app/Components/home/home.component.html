@@ -6,9 +6,10 @@
         <p>Elige una temporada</p>
         <div class="col-12">
             <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-            <select data-mdb-select-init class="select">
+            <select data-mdb-select-init class="select" [(ngModel)]="temporadaId">
+                <option value =''></option>
                 @for (temporada of temporadas; track temporada){
-                    <option value="{{temporada}}">{{temporada}}</option>
+                    <option value="{{temporada.id}}">{{temporada.id}}</option>
                 }
           </select>
         </div>
@@ -17,24 +18,25 @@
         <p>Elige un circuito</p>
         <div class="col-12">
             <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-            <select data-mdb-select-init class="select">
+            <select data-mdb-select-init class="select" [(ngModel)]="circuitoId">
+                <option value =''></option>
                 @for(circuito of circuitos; track circuito){
-                    <option value="{{circuito}}">{{circuito}}</option>
+                    <option value="{{circuito.id}}">{{circuito.circuito}}</option>
                 }
             </select>
           </div>
     </div>
     <div class="col-12" id="separar">
         <p>Ver la clasificación de pilotos</p>
-        <button data-mdb-ripple-init type="button" class="btn btn-primary">Ver</button>
+        <button data-mdb-ripple-init type="button" class="btn btn-primary" (click)="verPiloto(temporadaId)">Ver</button>
     </div>
     <div class="col-12" id="separar">
         <p>Ver la clasificación de equipos</p>
-        <button data-mdb-ripple-init type="button" class="btn btn-primary">Ver</button>
+        <button data-mdb-ripple-init type="button" class="btn btn-primary" (click)="verEquipo(temporadaId)">Ver</button>
     </div>
     <div class="col-12" id="separar">
         <p>Ver la clasificación del circuito</p>
-        <button data-mdb-ripple-init type="button" class="btn btn-primary">Ver</button>
+        <button data-mdb-ripple-init type="button" class="btn btn-primary" (click)="verCircuito(temporadaId, circuitoId)">Ver</button>
     </div>
 <form id="separar">
     <!-- Usuario -->

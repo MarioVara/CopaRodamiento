@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Equipo, Piloto, Temporada } from '../../Data/model';
-import { ListadosService } from '../../Services/crud.service';
+import { crudService } from '../../Services/crud.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,16 +17,17 @@ export class EquiparComponent implements OnInit{
   pilotoId:number = 0;
   equipoId:number = 0;
   temporadaId:number = 0;
+  piloto!:Piloto;
 
   equipos:Equipo[]=[];
   pilotos:Piloto[]=[];
   temporadas:Temporada[]=[];
 
-  constructor(private crud:ListadosService){}
+  constructor(private crud:crudService){}
     ngOnInit(): void {
-      this.equipos = this.crud.getEquipos();
-      this.pilotos = this.crud.getPilotos();
-      this.temporadas = this.crud.getTemporadas();
+      this.crud.getEquipos().subscribe(result =>{this.equipos=result});
+      this.crud.getPiloto(this.pilotoId).subscribe(result => {this.piloto = result});
+      this.crud.getTemporadas().subscribe(result =>{this.temporadas = result});
     }
   
     onSubmit(){

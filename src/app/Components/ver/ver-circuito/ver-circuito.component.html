@@ -1,0 +1,52 @@
+<div id="headDiv">
+    <h1 class="modal-title fs-5" id="exampleModalLabel">Resultados de {{info.carrera.circuito}} en la temporada {{temporadaId}}</h1>
+    @if(info.sprint == true){
+        <h2 class="modal-title fs-5" id="exampleModalLabel">Hubo carrera Sprint</h2>
+    }
+</div>
+<div id="theDiv">
+<div id='theTable'>
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th scope="col">Posicion</th>
+            <th scope="col">Piloto</th>
+            <th scope="col">Puntos</th>
+            <th scope="col">Pole</th>
+            <th scope="col">Vuelta Rapida</th>
+            <th scope="col">Sancion</th>
+            @if(info.sprint == true){
+                <th scope="col">Puntos sprint</th>
+                <th scope="col">Puntos Totales</th>
+            }
+            
+        </tr>
+        </thead>
+        <tbody>
+        @for(linea of resultado; track $index){
+        <tr>
+            <th scope="row">{{linea.posicion}}</th>
+            <td>{{linea.piloto.nombre}}</td>
+            <td>{{linea.puntos}}</td>
+            @if(linea.pole == false){        
+                <td></td>}
+            @else{<td>Si</td>}
+            @if(linea.vueltaRapida == false){        
+                    <td></td>}
+            @else{<td>Si</td>}
+            @if(linea.sancion == 0){        
+                <td></td>}
+            @else{<td>{{linea.sancion}}</td>}
+            @if(info.sprint == true){
+                <td>{{linea.puntosSprint}}</td>
+                <td>{{linea.puntos+linea.puntosSprint}}</td>
+        }
+
+
+        </tr>
+        }
+    </table>
+    <button type="button" class="btn btn-primary" style="margin: 20px; text-align: center;" routerLink='/'>Volver</button>
+</div>
+</div>
+

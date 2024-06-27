@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Puntos } from '../../../Data/model';
-import { ListadosService } from '../../../Services/crud.service';
+import { crudService } from '../../../Services/crud.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -15,11 +15,10 @@ export class EditPuntoComponent implements OnInit{
   puntosCarrera!:Puntos[];
   puntosSprint!:Puntos[];
 
-  constructor(private crud:ListadosService){}
+  constructor(private crud:crudService){}
 
   ngOnInit(): void {
-    this.puntosCarrera = this.crud.getPuntuacionCarrera();
-    this.puntosSprint = this.crud.getPuntuacionSprint();
+    this.crud.getPuntuacionCarrera().subscribe(result=>{this.puntosCarrera = result});
   }
 
   editarCarrera(puntosCarrera:Puntos[]){

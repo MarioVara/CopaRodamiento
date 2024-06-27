@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { ListadosService } from '../../Services/crud.service';
+import { crudService } from '../../Services/crud.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +16,7 @@ export class AddTempComponent implements OnInit{
   idTemp:number = 0;
   
   
-  constructor(private crud:ListadosService){}
+  constructor(private crud:crudService){}
     ngOnInit(): void {
       
     }

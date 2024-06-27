@@ -3,7 +3,7 @@ import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { SelectService } from '../../../Services/select.service';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Circuito, Clasificacion, Piloto, Puntos, Registro, Temporada } from '../../../Data/model';
-import { ListadosService } from '../../../Services/crud.service';
+import { crudService } from '../../../Services/crud.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -27,7 +27,7 @@ export class EditResComponent implements OnInit{
 
   filas:Registro[] = [];
   fila:Registro | undefined;
-
+  filasRellenas:Registro[] = [];
   form: FormGroup;
 
   puntosSprint!:Puntos[];
@@ -39,7 +39,7 @@ export class EditResComponent implements OnInit{
   
   sancion:number = 0;
   
-  constructor (private select:SelectService, private crud:ListadosService, private fb:FormBuilder, private route: ActivatedRoute){ 
+  constructor (private crud:crudService, private fb:FormBuilder, private route: ActivatedRoute){ 
     this.form = this.fb.group({
       filas: this.fb.array([])
     });
@@ -54,14 +54,29 @@ export class EditResComponent implements OnInit{
   this.getPuntos();
   this.getPuntosSprint();
   this.initClasificaciones();
-  this.rellenarRegistro();
+  this.rellenarFilas();
+
   
   }
-    rellenarRegistro(){
-      //this.filas = this.crud.getResultado(this.circuitoId, this.temporada);
+  rellenarFilas(){
+    for(let i = 0; i<20; i++){
+      this.filas.push({
+        posicion: i+1,
+        puntosSprint: this.puntosSprint[i].puntos,
+        puntos: this.puntos[i].puntos,
+        piloto: this.pilotos,
+        pole: false,
+        vueltaRapida: false,
+        sancion:0
+      });
     }
+  }
+
+
+
+
     getPilotos(){
-      this.pilotos = this.select.getPilotos();
+      this.crud.getPilotos().subscribe(result => {this.pilotos = result});
     }
     initClasificaciones() {
       this.filas.forEach(() => {
@@ -69,16 +84,18 @@ export class EditResComponent implements OnInit{
       });
     }
     getTemporadas(){
-      this.temporadas = this.select.getTemporadas();
+      this.crud.getTemporadas().subscribe(result =>{this.temporadas = result});
     }
     getCircuito(circuitoId:number){
-      this.circuito = this.crud.getCircuito(circuitoId);
+      this.crud.getCircuito(circuitoId).subscribe(result =>{this.circuito = result});
+
     }
     getPuntos(){
-      this.puntos = this.crud.getPuntuacionCarrera();
+      this.crud.getPuntuacionCarrera().subscribe(result=>{this.puntos = result});
     }
     getPuntosSprint(){
-      this.puntosSprint = this.crud.getPuntuacionSprint();
+      this.crud.getPuntuacionCarrera().subscribe(result=>{this.puntosSprint = result});
+
     }
     onSubmit(filas:Registro[]){
       if(this.temporada==0 || this.circuito.circuito=='' || this.sprint==undefined ){
@@ -95,7 +112,7 @@ export class EditResComponent implements OnInit{
           text: "Registro añadido",
           icon: "info"
         });
-        this.rellenarRegistro()}
+      }
     }
   }
   

@@ -36,15 +36,15 @@
             </tr>
             </thead>
             <tbody>
-            @for(punto of puntosSprint; track $index){   
+            @for(punto of puntosCarrera; track $index){   
                 <tr>
                     <th scope="row">{{punto.posicion}}</th>
-                    <td><input style="width: 45px;" type="number" value="{{punto.puntos}}" name="{{punto.puntos}}" [(ngModel)]="punto.puntos"></td>
+                    <td><input style="width: 45px;" type="number" value="{{punto.puntos_sprint}}" name="{{punto.puntos_sprint}}" [(ngModel)]="punto.puntos_sprint"></td>
                 </tr>
             }
             </tbody>
         </table>
-        <button type="button" (click)="editarSprint(puntosSprint)">Editar Sprint</button>
+        <button type="button" (click)="editarSprint(puntosCarrera)">Editar Sprint</button>
     </form>
     </div>
     

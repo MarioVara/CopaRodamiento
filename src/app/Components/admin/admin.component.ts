@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { ListadosService } from '../../Services/crud.service';
+import { crudService } from '../../Services/crud.service';
 import { Circuito, Equipo, Piloto, Temporada } from '../../Data/model';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin',
@@ -25,31 +26,56 @@ idCircuito:number = 0;
 idCircuitoRes:number=0;
 idEquipo:number = 0;
 
-  constructor(private crud:ListadosService, private route:Router){}
+  constructor(private crud:crudService, private route:Router){}
 
   ngOnInit(): void {
-    this.circuitos = this.crud.getCircuitos();
-    this.pilotos = this.crud.getPilotos();
-    this.temporadas = this.crud.getTemporadas();
-    this.equipos = this.crud.getEquipos();
+    this.crud.getPilotos().subscribe(result => {this.pilotos = result});
+    this.crud.getCircuitos().subscribe(result =>{this.circuitos = result});
+    this.crud.getTemporadas().subscribe(result =>{this.temporadas = result});
+    this.crud.getEquipos().subscribe(result =>{this.equipos=result});
   }
   editarPiloto(idPiloto:number){
-    this.route.navigate([`/editPil/${idPiloto}`]);
-    console.log(idPiloto);
+    if(idPiloto==0){
+      Swal.fire({
+        title: "Algo va mal",
+        text: "Introduce Piloto",
+        icon: "error"
+      });  
+      }
+      else this.route.navigate([`/editPil/${idPiloto}`]);
   }
 
   editarEquipo(idEquipo:number, idTemporada:number){
-    this.route.navigate([`/editEqui/${idEquipo}/${idTemporada}`]);
-    console.log(idEquipo, idTemporada);
+    if(idEquipo == 0 || idTemporada == 0 ){
+      Swal.fire({
+        title: "Algo va mal",
+        text: "Introduce Equipo y Temporada",
+        icon: "error"
+      });  
+      }
+    else this.route.navigate([`/editEqui/${idEquipo}/${idTemporada}`]);
+    
   }
 
   editarCircuito(idCircuito:number){
-    this.route.navigate([`/editCirc/${idCircuito}`]);
-    console.log(idCircuito);
+    if(idCircuito==0){
+      Swal.fire({
+        title: "Algo va mal",
+        text: "Introduce Circuito",
+        icon: "error"
+      });  
+      }
+    else this.route.navigate([`/editCirc/${idCircuito}`]);
   }
 
   editarResultado(idTemporada:number, idCircuito:number){
-    this.route.navigate([`/editRes/${idCircuito}/${idTemporada}`]);
-    console.log(idTemporada, idCircuito);
+    if(idTemporada==0 || idCircuito==0 ){
+      Swal.fire({
+        title: "Algo va mal",
+        text: "Introduce Temporada y Circuito",
+        icon: "error"
+      });  
+      }
+    else this.route.navigate([`/editRes/${idCircuito}/${idTemporada}`]);
   }
 }

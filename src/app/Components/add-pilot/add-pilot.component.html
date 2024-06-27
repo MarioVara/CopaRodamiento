@@ -30,7 +30,15 @@
                     </select>
                     <label class="form-label">Equipo</label>
                 </div>
-
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="equipo" [(ngModel)]="temporadaId">
+                      <option value="0" selected disabled></option>
+                      @for(temporada of temporadas; track $index){
+                        <option value="{{temporada.id}}">{{temporada.id}}</option>
+                      }
+                  </select>
+                  <label class="form-label">Temporada</label>
+              </div>
                 <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Aceptar</button>
                 <br><br>
                 <a data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-3" type="button" routerLink="/admin">Volver</a>

@@ -12,6 +12,9 @@ import { EditEquiComponent } from './Components/ediciones/edit-equi/edit-equi.co
 import { EditPilComponent } from './Components/ediciones/edit-pil/edit-pil.component';
 import { EditResComponent } from './Components/ediciones/edit-res/edit-res.component';
 import { EditPuntoComponent } from './Components/ediciones/edit-punto/edit-punto.component';
+import { VerPilotosComponent } from './Components/ver/ver-pilotos/ver-pilotos.component';
+import { VerEquiposComponent } from './Components/ver/ver-equipos/ver-equipos.component';
+import { VerCircuitoComponent } from './Components/ver/ver-circuito/ver-circuito.component';
 
 
 export const routes: Routes = [
@@ -27,5 +30,9 @@ export const routes: Routes = [
     {path: 'editEqui/:idPil/:idTemp', component:EditEquiComponent},
     {path: 'editPil/:idPil', component:EditPilComponent},
     {path: 'editRes/:idCir/:idTemp', component:EditResComponent},
-    {path: 'editPunt', component:EditPuntoComponent}
+    {path: 'editPunt', component:EditPuntoComponent},
+    {path: 'verPil/:temp', component:VerPilotosComponent},
+    {path: 'verEqui/:temp', component:VerEquiposComponent},
+    {path: 'verCirc/:temp/:circ', component:VerCircuitoComponent}
+
 ];

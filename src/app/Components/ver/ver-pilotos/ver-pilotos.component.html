@@ -1,0 +1,38 @@
+@if(!resultado){<p>Cargando}
+  @else {
+  <div id="headDiv">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Resultados de los equipos en la temporada {{temporadaId}}</h1>
+  
+  </div>
+  <div id="theDiv">
+  <div id='theTable'>
+      <table class="table table-striped table-dark">
+          <thead>
+          <tr>
+              <th scope="col">Posicion</th>
+              <th scope="col">Equipo</th>
+              <th scope="col">Puntos</th>
+              <th scope="col">Poles</th>
+              <th scope="col">Vueltas Rápidas</th>
+              
+          </tr>
+          </thead>
+          <tbody>
+          @for(linea of resultado; track $index){
+          <tr>
+              <th scope="row">{{$index+1}}</th>
+              <td>{{linea.piloto.nombre}}</td>
+              <td>{{linea.total_puntos}}</td>
+              @if(linea.total_poles == 0){        
+                  <td></td>}
+              @else{<td>{{linea.total_poles}}</td>}
+              @if(linea.total_rapidas == 0){        
+                      <td></td>}
+              @else{<td>{{linea.total_rapidas}}</td>}
+          </tr>   
+          }
+      </table>
+      <button type="button" class="btn btn-primary" style="margin: 20px; text-align: center;" routerLink='/'>Volver</button>
+  </div>
+  </div>
+  }

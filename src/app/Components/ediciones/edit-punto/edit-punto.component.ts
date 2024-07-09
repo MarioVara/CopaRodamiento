@@ -3,6 +3,7 @@ import { Puntos } from '../../../Data/model';
 import { crudService } from '../../../Services/crud.service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-punto',
@@ -21,12 +22,12 @@ export class EditPuntoComponent implements OnInit{
     this.crud.getPuntuacionCarrera().subscribe(result=>{this.puntosCarrera = result});
   }
 
-  editarCarrera(puntosCarrera:Puntos[]){
-    this.crud.guardarPuntosCarrera(puntosCarrera)
+  editarPuntos(puntosCarrera:Puntos[]){
+    Swal.fire({
+      title: "Perfect",
+      text: "Puntos Editados",
+      icon: "info"
+    });
+    this.crud.guardarPuntos(puntosCarrera);
   }
-
-  editarSprint(puntosSprint:Puntos[]){
-    this.crud.guardarPuntosSprint(puntosSprint);
-  }
-
 }

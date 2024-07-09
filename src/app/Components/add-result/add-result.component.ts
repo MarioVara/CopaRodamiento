@@ -17,16 +17,16 @@ import Swal from 'sweetalert2';
 export class AddResultComponent implements OnInit {
   pilotos:Piloto[] = [];
   pilotoId:number = 0;
-  piloto:Piloto | undefined;
+  piloto!:Piloto;
 
   circuitos:Circuito[] = [];
   circuito!:Circuito;
 
-  temporada:number = 0;
+  temporada!:Temporada;
   temporadas:Temporada[] = [];
 
   filas:Registro[] = [];
-  fila!:Registro;
+  registro!:Registro;
 
   form: FormGroup;
 
@@ -35,11 +35,12 @@ export class AddResultComponent implements OnInit {
   pole:boolean = false;
   vueltaRapida:boolean = false;
   clasificaciones:Clasificacion[] = [];
-  
+  clasificacion!:Clasificacion;
+
   sancion:number = 0;
   
 
-constructor (private select:SelectService,private crud:crudService, private fb:FormBuilder){ 
+constructor (private select:SelectService, private crud:crudService, private fb:FormBuilder){ 
   this.form = this.fb.group({
     filas: this.fb.array([])
   });
@@ -86,12 +87,15 @@ this.initClasificaciones();
       this.rellenarFilas();
     });
   }
-
+  isObject(value: any): boolean {
+    this.piloto = value;
+    return typeof value === 'object' && value !== null && !Array.isArray(value);
+  }
 
   //Hay que mejorar esto mucho: Los registros vacíos no se envian a la BDD
 
-  onSubmit(filas:Registro[], temporada:number, circuito:Circuito){
-    if(this.temporada==0 || this.circuito.id==0 || this.sprint==undefined ){
+  onSubmit(filas:Registro[], temporada:Temporada, circuito:Circuito){
+    if(temporada == undefined || this.circuito.id == 0 || this.sprint == undefined ){
       Swal.fire({
         title: "Algo va mal",
         text: "Introduce Temporada, Circuito y Sprint",
@@ -99,7 +103,35 @@ this.initClasificaciones();
       });  
       }
 
-      else {this.crud.addResultado(filas);
+      else {
+        filas.forEach(fila => {
+          if(this.isObject(fila.piloto)){
+            if(this.sprint){
+              if(fila.vueltaRapida){ this.clasificacion= {id:0, piloto:this.piloto, posicion:fila.posicion, puntos:(Number(fila.puntos)+1), pole:fila.pole,
+                vueltaRapida:fila.vueltaRapida, sprint:this.sprint, puntosSprint:fila.puntosSprint, sancion:fila.sancion, temporada:this.temporada, carrera:this.circuito
+                }
+              
+              }
+              else  this.clasificacion= {id:0, piloto:this.piloto, posicion:fila.posicion, puntos:fila.puntos, pole:fila.pole,
+                vueltaRapida:fila.vueltaRapida, sprint:this.sprint, puntosSprint:fila.puntosSprint, sancion:fila.sancion, temporada:this.temporada, carrera:this.circuito
+                }
+            }
+            else{
+              if(fila.vueltaRapida){ this.clasificacion= {id:0, piloto:this.piloto, posicion:fila.posicion, puntos:(Number(fila.puntos)+1), pole:fila.pole,
+                vueltaRapida:fila.vueltaRapida, sprint:this.sprint, puntosSprint:0, sancion:fila.sancion, temporada:this.temporada, carrera:this.circuito
+                }
+              
+              }
+              else  this.clasificacion= {id:0, piloto:this.piloto, posicion:fila.posicion, puntos:fila.puntos, pole:fila.pole,
+                vueltaRapida:fila.vueltaRapida, sprint:this.sprint, puntosSprint:0, sancion:fila.sancion, temporada:this.temporada, carrera:this.circuito
+                }
+            }
+            
+            this.crud.addResultado(this.clasificacion);
+          }
+        });
+        
+        
       Swal.fire({
         title: "Perfect",
         text: "Registro añadido",

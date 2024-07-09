@@ -16,8 +16,10 @@ export class crudService {
     
    //Resultados
 
-  addResultado(filas:Registro[]){
-    console.log(filas);
+  addResultado(fila:Clasificacion){
+    console.log(fila);
+    const body:Clasificacion = fila;
+    this.http.post(`${this.url}clasificacion_carrera.php/addResultado`, body).subscribe();
   }
   getResultado(circuitoId:number, temporada:number){
     return this.http.get<Clasificacion[]>(`${this.url}clasificacion_carrera.php/getResultado/${circuitoId}/${temporada}`)  
@@ -28,7 +30,13 @@ export class crudService {
   getResultadoPiloto(temporada:number){
     return this.http.get<ClasificacionPiloto[]>(`${this.url}clasifica_pilotos.php/getResultado/${temporada}`)
   }
-  
+  deleteResultado(temporada:Temporada, circuito:Circuito){
+    const body = {temporada, circuito};
+    console.log(body);
+    return this.http.post(`${this.url}clasificacion_carrera.php/deleteResultado`, body).subscribe();
+  }
+
+
   //Pilotos
 
   guardarPiloto(nombre:string, nickname:string){
@@ -55,7 +63,8 @@ export class crudService {
   }
   
   editarPiloto(pilotoId:number, nombre:string, nickname:string){
-    console.log(pilotoId, nombre, nickname);
+    const body= {pilotoId, nombre, nickname}
+    this.http.post(`${this.url}pilotos.php/editarPiloto`, body).subscribe();
   }
 
   //Equipos
@@ -65,22 +74,37 @@ export class crudService {
   getEquipo(equipoId:number){
     return this.http.get<Equipo>(`${this.url}equipos.php/getEquipo/${equipoId}`);
   }
+  getEquipamiento(piloto:number, temporada:number){
+    return this.http.get<number>(`${this.url}equipos.php/getEquipamiento/${piloto}/${temporada}`)
+  }
   guardarEquipo(nombreEquipo:string){
-    console.log(nombreEquipo);
+    const body = {nombreEquipo}
+    this.http.post(`${this.url}equipos.php/addEquipo`, body).subscribe();
   }
   equipar(pilotoId:number, temporadaId:number, equipoId:number){
+    //Añade uno nuevo
     console.log(pilotoId, temporadaId, equipoId);
+    const body = {pilotoId, temporadaId, equipoId}
+    this.http.post(`${this.url}equipos.php/equipar`, body).subscribe();
   }
   editarEquipo(pilotoId:number, temporadaId:number, equipoId:number){
+    //Edita el que hay
     console.log(pilotoId, temporadaId, equipoId);
+    const body = {pilotoId, temporadaId, equipoId}
+    this.http.post(`${this.url}equipos.php/editEquipar`, body).subscribe();
   }
 
   //Temporadas
   getTemporadas(){
     return this.http.get<Temporada[]>(`${this.url}temporadas.php/getTemporadas`);
   }
+  getTemporada(id:number){
+
+    return this.http.get<Temporada>(`${this.url}temporadas.php/getTemporada/${id}`);
+  }
   guardarTemporada(idTemp:number){
-    console.log(idTemp);
+    const body = {idTemp}
+    this.http.post(`${this.url}temporadas.php/addTemporada`, body).subscribe();
   }
 
 
@@ -93,24 +117,21 @@ export class crudService {
   }
   editarCircuito(circuitoId:number, circuito:string, pais:string){
     console.log(circuitoId, circuito, pais);
+    const body= {circuitoId, circuito, pais}
+    this.http.post(`${this.url}circuitos.php/editarCircuito`, body).subscribe();
+
   }
   addCircuito(circuito:string, pais:string){
     const body= {circuito, pais}
     this.http.post(`${this.url}circuitos.php/addCircuito`, body).subscribe();
-
   }
 
   //Puntuación
   getPuntuacionCarrera(){
     return this.http.get<Puntos[]>(`${this.url}puntos.php/getPuntos`);
   }
-  getPuntuacionSprint(){
-    return this.http.get<Puntos[]>(`${this.url}puntos.php/getPuntosSprint`);
-  }
-  guardarPuntosCarrera(puntosCarrera:Puntos[]){
-    console.log(puntosCarrera);
-  }
-  guardarPuntosSprint(puntosCarrera:Puntos[]){
-    console.log(puntosCarrera);
+  guardarPuntos(puntosCarrera:Puntos[]){
+    const body = puntosCarrera;
+    this.http.post(`${this.url}puntos.php/editarPuntos`, body).subscribe();
   }
 }

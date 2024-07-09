@@ -21,7 +21,7 @@
             }
             </tbody>
         </table>
-        <button type="button" (click)="editarCarrera(puntosCarrera)">Editar Carrera</button>
+        
     </form>
 </div>
 
@@ -44,9 +44,15 @@
             }
             </tbody>
         </table>
-        <button type="button" (click)="editarSprint(puntosCarrera)">Editar Sprint</button>
+        
     </form>
     </div>
     
+    
 </div>
-<p><a type="button" routerLink="/admin" style="padding: 20px; padding-left: 20%; padding-top: 0%;"> Volver Atras</a>
+<div style="padding: 20px; padding-left: 20%; padding-top: 0%;">
+    <button type="button" class="btn btn-primary" (click)="editarPuntos(puntosCarrera)">Editar Puntos</button>
+    <br>
+    <br>
+    <button type="button" class="btn btn-secondary" routerLink="/admin">Volver Atras</button>
+</div>

@@ -26,7 +26,7 @@ export class EquiparComponent implements OnInit{
   constructor(private crud:crudService){}
     ngOnInit(): void {
       this.crud.getEquipos().subscribe(result =>{this.equipos=result});
-      this.crud.getPiloto(this.pilotoId).subscribe(result => {this.piloto = result});
+      this.crud.getPilotos().subscribe(result => {this.pilotos = result});
       this.crud.getTemporadas().subscribe(result =>{this.temporadas = result});
     }
   

@@ -3,6 +3,7 @@ import { crudService } from '../../../Services/crud.service';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { FormsModule, NgModel } from '@angular/forms';
 import { Circuito } from '../../../Data/model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-circ',
@@ -15,18 +16,31 @@ export class EditCircComponent implements OnInit{
   circuitoId:number = 0;
   circuito!:Circuito;
   pais:string = '';
-  elCircuito!: Circuito;
+  
 
   constructor(private crud:crudService, private route:ActivatedRoute ){}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => this.circuitoId = params['idCirc']);
     this.crud.getCircuito(this.circuitoId).subscribe(result =>{this.circuito = result});
-    this.pais = this.elCircuito.pais;
   }
   
   editarCircuito(circuito:string, pais:string){
-    this.crud.editarCircuito(this.circuitoId, circuito, pais);
+    if(circuito==''||pais==''){
+      Swal.fire({
+        title: "Algo va mal",
+        text: "Introduce todos los datos",
+        icon: "error"
+      });  
+      }
+    else {
+      this.crud.editarCircuito(this.circuitoId, circuito, pais);
+      Swal.fire({
+        title: "Perfect",
+        text: "Circuito Editado",
+        icon: "info"
+      });
+    }
   }
   
 }

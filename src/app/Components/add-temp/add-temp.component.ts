@@ -29,7 +29,9 @@ export class AddTempComponent implements OnInit{
         icon: "error"
       });  
       }
-      else {this.crud.guardarTemporada(this.idTemp);
+      else {
+        console.log(this.idTemp)
+        this.crud.guardarTemporada(this.idTemp);
       Swal.fire({
         title: "Perfect",
         text: "Agregada una temporada",

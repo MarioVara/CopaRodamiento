@@ -16,17 +16,17 @@ import Swal from 'sweetalert2';
 export class EditResComponent implements OnInit{
   pilotos:Piloto[] = [];
   pilotoId:number = 0;
-  piloto:Piloto | undefined;
+  piloto!:Piloto;
 
   circuitos:Circuito[] = [];
   circuito!:Circuito;
   circuitoId:number =0;
 
-  temporada:number = 0;
-  temporadas:Temporada[] = [];
+  temporadaId:number = 0;
+  temporada!:Temporada;
 
   filas:Registro[] = [];
-  fila:Registro | undefined;
+  fila!:Registro;
   filasRellenas:Registro[] = [];
   form: FormGroup;
 
@@ -36,7 +36,8 @@ export class EditResComponent implements OnInit{
   pole:boolean = false;
   vueltaRapida:boolean = false;
   clasificaciones:Clasificacion[] = [];
-  
+  clasificacion!:Clasificacion;
+
   sancion:number = 0;
   
   constructor (private crud:crudService, private fb:FormBuilder, private route: ActivatedRoute){ 
@@ -46,59 +47,67 @@ export class EditResComponent implements OnInit{
   }
   
   ngOnInit() {
-  this.route.params.subscribe(param => {this.circuitoId = param['idCir'], this.temporada = param['idTemp']});
+  this.route.params.subscribe(param => {this.circuitoId = param['idCir'], this.temporadaId = param['idTemp']});
 
   this.getPilotos();
   this.getCircuito(this.circuitoId);
-  this.getTemporadas();
   this.getPuntos();
-  this.getPuntosSprint();
   this.initClasificaciones();
   this.rellenarFilas();
+  this.getTemporada(this.temporadaId);
 
   
   }
   rellenarFilas(){
-    for(let i = 0; i<20; i++){
-      this.filas.push({
-        posicion: i+1,
-        puntosSprint: this.puntosSprint[i].puntos,
-        puntos: this.puntos[i].puntos,
-        piloto: this.pilotos,
-        pole: false,
-        vueltaRapida: false,
-        sancion:0
-      });
+    if(!this.puntos){
     }
+    else{
+      for(var punto of this.puntos){
+        this.filas.push({
+          posicion: punto.posicion,
+          puntosSprint: punto.puntos_sprint,
+          puntos: punto.puntos,
+          piloto: this.pilotos,
+          pole: false,
+          vueltaRapida: false,
+          sancion:0
+        });
+      }
+   }
   }
 
 
-
-
-    getPilotos(){
+getTemporada(temporadaId:number){
+  this.crud.getTemporada(temporadaId).subscribe(result=>{
+    console.log(result);
+    this.temporada = result;
+  })
+}
+  getPilotos(){
       this.crud.getPilotos().subscribe(result => {this.pilotos = result});
     }
     initClasificaciones() {
-      this.filas.forEach(() => {
-       // this.clasificaciones.push(new Clasificacion('', 0, 0, false, false, 0, 0));
-      });
+   this.crud.getResultado(this.circuitoId,this.temporadaId).subscribe(result => {
+    this.clasificaciones = result;
+    console.log(result);
+
+   });
     }
-    getTemporadas(){
-      this.crud.getTemporadas().subscribe(result =>{this.temporadas = result});
+    isObject(value: any): boolean {
+      this.piloto = value;
+      return typeof value === 'object' && value !== null && !Array.isArray(value);
     }
     getCircuito(circuitoId:number){
       this.crud.getCircuito(circuitoId).subscribe(result =>{this.circuito = result});
 
     }
     getPuntos(){
-      this.crud.getPuntuacionCarrera().subscribe(result=>{this.puntos = result});
+      this.crud.getPuntuacionCarrera().subscribe(result=>{this.puntos = result
+        this.rellenarFilas();
+      });
     }
-    getPuntosSprint(){
-      this.crud.getPuntuacionCarrera().subscribe(result=>{this.puntosSprint = result});
-
-    }
-    onSubmit(filas:Registro[]){
-      if(this.temporada==0 || this.circuito.circuito=='' || this.sprint==undefined ){
+    onSubmit(filas:Registro[], temporada:number, circuito:Circuito){
+      if(temporada == undefined || this.circuito.id == 0 || this.sprint == undefined ){
         Swal.fire({
           title: "Algo va mal",
           text: "Introduce Temporada, Circuito y Sprint",
@@ -106,14 +115,60 @@ export class EditResComponent implements OnInit{
         });  
         }
   
-        else {this.crud.addResultado(this.filas);
+        else {
+          this.crud.deleteResultado(this.temporada, this.circuito);
+          filas.forEach(fila => {
+            if(this.isObject(fila.piloto)){
+              if(this.sprint){
+                if(fila.vueltaRapida){ this.clasificacion= {id:0, piloto:this.piloto, posicion:fila.posicion, puntos:(Number(fila.puntos)+1), pole:fila.pole,
+                  vueltaRapida:fila.vueltaRapida, sprint:this.sprint, puntosSprint:fila.puntosSprint, sancion:fila.sancion, temporada:this.temporada, carrera:this.circuito
+                  }
+                
+                }
+                else  this.clasificacion= {id:0, piloto:this.piloto, posicion:fila.posicion, puntos:fila.puntos, pole:fila.pole,
+                  vueltaRapida:fila.vueltaRapida, sprint:this.sprint, puntosSprint:fila.puntosSprint, sancion:fila.sancion, temporada:this.temporada, carrera:this.circuito
+                  }
+              }
+              else{
+                if(fila.vueltaRapida){ this.clasificacion= {id:0, piloto:this.piloto, posicion:fila.posicion, puntos:(Number(fila.puntos)+1), pole:fila.pole,
+                  vueltaRapida:fila.vueltaRapida, sprint:this.sprint, puntosSprint:0, sancion:fila.sancion, temporada:this.temporada, carrera:this.circuito
+                  }
+                
+                }
+                else  this.clasificacion= {id:0, piloto:this.piloto, posicion:fila.posicion, puntos:fila.puntos, pole:fila.pole,
+                  vueltaRapida:fila.vueltaRapida, sprint:this.sprint, puntosSprint:0, sancion:fila.sancion, temporada:this.temporada, carrera:this.circuito
+                  }
+              }
+              
+              this.crud.addResultado(this.clasificacion);
+            }
+          });
+          
+          
         Swal.fire({
           title: "Perfect",
           text: "Registro añadido",
           icon: "info"
         });
-      }
+        }
     }
+  borrar(){Swal.fire({
+    title: "¿Seguro que quieres borrar el resultado?",
+    showDenyButton: false,
+    showCancelButton: true,
+    confirmButtonText: "Si",
+    denyButtonText: `No`
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      this.crud.deleteResultado(this.temporada, this.circuito);
+      Swal.fire("Borrado!", "", "success");
+    } else if (result.isDenied) {
+      Swal.fire("No borrado", "", "info");
+    }
+  });
+   
+  }
   }
   
   

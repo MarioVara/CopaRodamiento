@@ -1,4 +1,5 @@
 <form>
+<div style="margin-left: 10%; margin-top: 5%;">
     <input type="hidden" name="hacer" value="anre">
     <p>Temporada: 
         <select name="temporada" [(ngModel)]="temporada" required >
@@ -14,17 +15,26 @@
             <option value="{{circuito.id}}"> {{circuito.circuito}}</option>
         }
     </select>
-    <p>Sprint?: <select name="sprint" [(ngModel)]="sprint">
-        <option value="FALSE">No</option>
-        <option value="TRUE">Si</option>
-    </select><br>
+    
+    <div>
+        <p>Sprint:
+    <label style="margin-right:  15px;">
+        <input type="radio" name="sprint" [(ngModel)]="sprint" [value]="false">
+        No
+    </label>
+    <label>
+        <input type="radio" name="sprint" [(ngModel)]="sprint" [value]="true">
+        Sí
+    </label>
+    </div>
+</div>
 </form>
 
 
 <form>
     <table ><tr>
     <th>Piloto</th>
-    <th>Posicion</th>
+    <th>Posición</th>
     <th>Puntos</th>
     <th>Pole</th>
     <th>Vuelta Rápida</th>
@@ -35,26 +45,44 @@
     @for(filita of filas; track $index;){
     <tr>
     <td> <select name="piloto{{$index}}" [(ngModel)]="filita.piloto">
-                <option value="null" selected disabled>Selecciona Piloto</option>
+        <option value="" disabled selected></option>
             @for(piloto of pilotos; track piloto){
-                <option [value]="piloto"> {{piloto.nombre}} </option>
+                <option [ngValue]="piloto"> {{piloto.nombre}} </option>
             }
         </select>
     </td>
     <!-- Creo que todo esto tiene que ir en un NgModel -->
     <td><input type="number"  id="posicion{{$index+1}}" value="{{filita.posicion}}" name="posicion{{$index+1}}" [(ngModel)]="filita.posicion" disabled></td>
     <td><input type="number" value="{{filita.puntos}}" name="puntos{{$index+1}}" [(ngModel)]="filita.puntos"></td>
-    <td><select name="pole{{$index+1}}" [(ngModel)]="filita.pole"> <option value="FALSE">No</option><option value="TRUE">Si</option></select></td>
-    <td><select name="vuelta_rapida{{$index+1}}" [(ngModel)]="filita.vueltaRapida" ><option value="FALSE">No</option><option value="TRUE">Si</option></select></td>
-    <td><input type="number" value="{{filita.puntosSprint}}" name="puntos_sprint{{$index+1}}" [(ngModel)]="filita.puntosSprint"></td>
+    <td> 
+        <label style="margin-right:5px;">
+        <input type="radio" name="pole{{$index+1}}" [(ngModel)]="filita.pole" [value]="false">
+        No
+        </label>
+        <label>
+        <input type="radio"  name="pole{{$index+1}}" [(ngModel)]="filita.pole" [value]="true">
+        Sí
+        </label>
+    </td>
+    <td> 
+        <label style="margin-right:5px;">
+        <input type="radio" name="vueltaRapida{{$index+1}}" [(ngModel)]="filita.vueltaRapida" [value]="false">
+        No
+        </label>
+        <label>
+        <input type="radio"  name="vueltaRapida{{$index+1}}" [(ngModel)]="filita.vueltaRapida" [value]="true">
+        Sí
+        </label>
+    </td>
+    <td><input type="number" value="{{filita.puntosSprint}}" name="puntos_sprint{{$index+1}}" [(ngModel)]="filita.puntosSprint" disabled></td>
     <td><input type="number" value="0" name="sancion{{$index+1}}" [(ngModel)]="filita.sancion"></td>
     </tr>
     }
 </table>
-        <button (click)="onSubmit(filas, temporada, circuito)">Añadir</button>
-            </form>
-<p></p>
 
-
-<p></p>
-            <p><a routerLink="/admin"> Volver Atras.</a>
+                <div style="padding: 20px; padding-left: 20%; padding-top: 20px; ">
+                    <button type="button" class="btn btn-primary" (click)="onSubmit(filas, temporada, circuito)">Añadir</button>
+                    <br>
+                    <br>
+                    <button type="button" class="btn btn-secondary" routerLink="/admin">Volver Atras</button>
+                </div>

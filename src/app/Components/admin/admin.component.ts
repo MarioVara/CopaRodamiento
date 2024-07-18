@@ -1,22 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { crudService } from '../../Services/crud.service';
 import { Circuito, Equipo, Piloto, Temporada } from '../../Data/model';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { AuthService } from '@auth0/auth0-angular';
+import { CommonModule, DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [RouterLink, RouterOutlet, FormsModule],
+  imports: [RouterLink, RouterOutlet, FormsModule, CommonModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })
 export class AdminComponent implements OnInit{
 circuitos:Circuito[] =[];
-pilotos:Piloto[] = [];
+pilotos!:Piloto[];
 temporadas:Temporada[] = [];
 equipos:Equipo[] = [];
+authy:boolean = false;
 
 idPilotoEquipo:number = 0;
 idPiloto:number = 0;
@@ -26,13 +29,19 @@ idCircuito:number = 0;
 idCircuitoRes:number=0;
 idEquipo:number = 0;
 
-  constructor(private crud:crudService, private route:Router){}
+  constructor(private crud:crudService, private route:Router, @Inject(DOCUMENT) public document: Document, public auth: AuthService){}
 
   ngOnInit(): void {
-    this.crud.getPilotos().subscribe(result => {this.pilotos = result});
-    this.crud.getCircuitos().subscribe(result =>{this.circuitos = result});
-    this.crud.getTemporadas().subscribe(result =>{this.temporadas = result});
-    this.crud.getEquipos().subscribe(result =>{this.equipos=result});
+    this.auth.isAuthenticated$.subscribe(isAuth =>{
+      if(isAuth){
+        this.authy = true;
+        this.crud.getPilotos().subscribe(result => {this.pilotos = result});
+        this.crud.getCircuitos().subscribe(result =>{this.circuitos = result});
+        this.crud.getTemporadas().subscribe(result =>{this.temporadas = result});
+        this.crud.getEquipos().subscribe(result =>{this.equipos=result});
+      }
+    })
+
   }
   editarPiloto(idPiloto:number){
     if(idPiloto==0){

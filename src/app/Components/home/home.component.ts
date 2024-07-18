@@ -1,15 +1,19 @@
-import { NgFor } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule, DOCUMENT, NgFor } from '@angular/common';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { crudService } from '../../Services/crud.service';
 import { Circuito, Temporada } from '../../Data/model';
 import Swal from 'sweetalert2';
 import { FormsModule, NgModel } from '@angular/forms';
+import { AuthModule, AuthService } from '@auth0/auth0-angular';
+import { UserServiceService } from '../../Services/user-service.service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, NgFor, FormsModule],
+  imports: [RouterOutlet, NgFor, FormsModule, CommonModule, AuthModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -18,11 +22,22 @@ export class HomeComponent implements OnInit{
   temporadaId:number =0;
   circuitos:Circuito[] =[];
   circuitoId:number=0;
+  authy: boolean = false;
+  roles$!: Observable<string[]>;
+  rol!:string;
 
 
-  constructor(private crud: crudService, private route:Router){
+  constructor(private crud: crudService, private route:Router, @Inject(DOCUMENT) public document: Document, public auth: AuthService, private userService: UserServiceService){
   }
   ngOnInit(): void {
+    this.userService.getUserRoles().subscribe((roles) =>
+    this.rol = roles[0]
+    );
+    this.auth.isAuthenticated$.subscribe(isAuth =>{
+      if(isAuth){
+        this.authy = true;
+      }
+    })
     this.crud.getTemporadas().subscribe(result =>{
       this.temporadas = result
     });
@@ -59,6 +74,9 @@ export class HomeComponent implements OnInit{
       });  
       }
       else this.route.navigate([`/verCirc/${idTemp}/${idCir}`]);
+  }
+  administrar(){
+    this.route.navigate([`/admin`]);
   }
 
 }

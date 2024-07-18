@@ -7,7 +7,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class crudService {
 
-  url:string = 'http://localhost/coparodamiento/php/';
+   url:string = 'http://localhost/coparodamiento/php/';
+  //url:string = 'php/';
+
 
   constructor(private http: HttpClient) {
     

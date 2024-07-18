@@ -1,5 +1,5 @@
 <div id="imagen">
-    <img src="assets/images/titulo.png" alt="Logo Copa Rodamiento">
+    <img src="../../../assets/images/titulo.png" alt="Logo Copa Rodamiento">
 </div>
 <div id="centrado">
     <div id="separar">
@@ -38,20 +38,31 @@
         <p>Ver la clasificación del circuito</p>
         <button data-mdb-ripple-init type="button" class="btn btn-primary" (click)="verCircuito(temporadaId, circuitoId)">Ver</button>
     </div>
-<form id="separar">
-    <!-- Usuario -->
-    <div data-mdb-input-init class="form-outline mb-4">
-        <label class="form-label" for="form1Example1">Usuario</label>
-        <input type="text" id="form1Example1" class="form-control" />
-    </div>
-  
-    <!--Contraseña -->
-    <div data-mdb-input-init class="form-outline mb-4">
-        <label class="form-label" for="form1Example2">Contraseña</label>
-        <input type="password" id="form1Example2" class="form-control" />
-    </div>
- 
+
+    <div class="col-12" id="separar">
+        <p>Area de administración</p>
+    
     <!-- Submit button -->
-    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block">Sign in</button>
-</form>
+    <!-- <ul *ngIf="auth.user$ | async as user">
+        <li>{{ user.name }}</li>
+        <li>{{ user.picture}}</li>
+        <li>{{ user.zoneinfo}}</li>
+      </ul>
+
+      <div *ngIf="roles$ | async as roles">
+        <p *ngFor="let role of roles">{{ role }}</p>
+      </div> -->
+
+        <button *ngIf="rol == 'Admin'" data-mdb-ripple-init type="submit" style="margin:15px" (click)="administrar()" class="btn btn-primary btn-block">Entrar</button>
+   
+    <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+		<button  class="btn btn-warning btn-danger" style="margin:15px" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">
+		  Log out
+		</button>
+	  </ng-container>
+  
+	  <ng-template #loggedOut>
+		<button (click)="auth.loginWithRedirect()" style="margin:15px" class="btn btn-success btn-block">Log in</button>
+	  </ng-template>
+    </div>
 </div>

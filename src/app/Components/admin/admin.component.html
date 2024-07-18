@@ -1,3 +1,16 @@
+@if(!authy){
+	
+}
+@else if(!pilotos){
+	<div style="margin: 20px; margin-left: 20%; margin-top: 20%;">
+	<div class="spinner-border" role="status">
+		<span class="visually-hidden">Loading...</span>
+	</div>
+	  <p>Cargando</p>
+	</div>
+}
+@else{
+
 <p class='titulin' >Añadir</p>
 <div class="unicode">
 <div class="pequeno"><a routerLink="/addRes" ><i class="bi bi-book"></i></a><br>Añadir resultado<br></div>
@@ -91,7 +104,19 @@
 	</div>
 
 <br>
-<br>
+<br>}
 <div style="padding: 20px; padding-left: 20%; padding-top: 0%;">
     <button type="button" class="btn btn-secondary" routerLink="/">Volver Atras</button>
+	<br>
+	<br>
+    <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+		<button  class="btn btn-warning btn-danger" style="margin:15px" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">
+		  Log out
+		</button>
+		
+	  </ng-container>
+  
+	  <ng-template #loggedOut>
+		<button class="btn btn-success btn-block" (click)="auth.loginWithRedirect()">Log in</button>
+	  </ng-template>
 </div>

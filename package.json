@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
+    "@auth0/auth0-angular": "^2.2.3",
     "@popperjs/core": "^2.11.8",
     "@sweetalert2/themes": "^5.0.16",
     "appwrite": "^15.0.0",

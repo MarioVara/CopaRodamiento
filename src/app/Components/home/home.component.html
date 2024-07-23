@@ -1,44 +1,49 @@
 <div id="imagen">
-    <img src="../../../assets/images/titulo.png" alt="Logo Copa Rodamiento">
+    <img src="logo.png" alt="Logo Copa Rodamiento">
 </div>
 <div id="centrado">
-    <div id="separar">
-        <p>Elige una temporada</p>
-        <div class="col-12">
-            <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-            <select data-mdb-select-init class="select" [(ngModel)]="temporadaId">
-                <option value =''></option>
-                @for (temporada of temporadas; track temporada){
-                    <option value="{{temporada.id}}">{{temporada.id}}</option>
-                }
-          </select>
-        </div>
-    </div>
-    <div id="separar">
-        <p>Elige un circuito</p>
-        <div class="col-12">
-            <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-            <select data-mdb-select-init class="select" [(ngModel)]="circuitoId">
-                <option value =''></option>
-                @for(circuito of circuitos; track circuito){
-                    <option value="{{circuito.id}}">{{circuito.circuito}}</option>
-                }
-            </select>
-          </div>
-    </div>
-    <div class="col-12" id="separar">
-        <p>Ver la clasificación de pilotos</p>
-        <button data-mdb-ripple-init type="button" class="btn btn-primary" (click)="verPiloto(temporadaId)">Ver</button>
-    </div>
-    <div class="col-12" id="separar">
-        <p>Ver la clasificación de equipos</p>
-        <button data-mdb-ripple-init type="button" class="btn btn-primary" (click)="verEquipo(temporadaId)">Ver</button>
-    </div>
-    <div class="col-12" id="separar">
-        <p>Ver la clasificación del circuito</p>
-        <button data-mdb-ripple-init type="button" class="btn btn-primary" (click)="verCircuito(temporadaId, circuitoId)">Ver</button>
-    </div>
 
+    <div class="juntos">
+            <div id="separar">
+                <p>Elige una temporada</p>
+                <div class="col-12">
+                    <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+                    <select data-mdb-select-init class="select" [(ngModel)]="temporadaId">
+                        <option value =''></option>
+                        @for (temporada of temporadas; track temporada){
+                            <option value="{{temporada.id}}">{{temporada.id}}</option>
+                        }
+                </select>
+                </div>
+            </div>
+            <div id="separar">
+                <p>Elige un circuito</p>
+                <div class="col-12">
+                    <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
+                    <select data-mdb-select-init class="select" [(ngModel)]="circuitoId">
+                        <option value =''></option>
+                        @for(circuito of circuitos; track circuito){
+                            <option value="{{circuito.id}}">{{circuito.circuito}}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+    </div>
+    <div class="juntosTres">
+            
+        <div class="col-12" id="separar">
+            <p>Ver la clasificación de pilotos</p>
+            <button data-mdb-ripple-init type="button" class="btn btn-primary" (click)="verPiloto(temporadaId)">Ver</button>
+        </div>
+        <div class="col-12" id="separar">
+            <p>Ver la clasificación de equipos</p>
+            <button data-mdb-ripple-init type="button" class="btn btn-primary" (click)="verEquipo(temporadaId)">Ver</button>
+        </div>
+        <div class="col-12" id="separar">
+            <p>Ver la clasificación del circuito</p>
+            <button data-mdb-ripple-init type="button" class="btn btn-primary" (click)="verCircuito(temporadaId, circuitoId)">Ver</button>
+        </div>
+    </div>    
     <div class="col-12" id="separar">
         <p>Area de administración</p>
     
@@ -56,7 +61,7 @@
         <button *ngIf="rol == 'Admin'" data-mdb-ripple-init type="submit" style="margin:15px" (click)="administrar()" class="btn btn-primary btn-block">Entrar</button>
    
     <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
-		<button  class="btn btn-warning btn-danger" style="margin:15px" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">
+		<button  class="btn btn-warning btn-danger" style="margin:15px" (click)="auth.logout({ logoutParams: { returnTo: 'https://p49-preview.runhosting.com/coparodamiento.mypressonline.com/' } })">
 		  Log out
 		</button>
 	  </ng-container>

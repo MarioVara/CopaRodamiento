@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
       domain: 'dev-sorjq8zi6vttvn3p.us.auth0.com',
       clientId: 'eJRIOp6ehatvt8K6uiY5QPyZ3PWBkYPp',
       authorizationParams: {
-        redirect_uri: window.location.origin
+        redirect_uri: 'https://p49-preview.runhosting.com/coparodamiento.mypressonline.com/'
       }
     }),
   ]

@@ -1,8 +1,17 @@
 #centrado{
-    width: 30%;
     text-align: center;
     margin-left: 40%;
     padding-top: 20px;
+}
+@media(max-width: 680px){
+    #centrado{
+        width: 100%;
+    }
+}
+@media(min-width: 681px){
+    #centrado{
+        width: 30%;
+    }
 }
 #imagen{
     width: 30%;
@@ -11,4 +20,29 @@
 }
 #separar{
     padding-top: 30px;
+}
+
+.juntos{
+  
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(1, 50px);
+    
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+.juntosTres{
+
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 50%);
+    grid-template-rows: repeat(1, 200px);
+    
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
 }

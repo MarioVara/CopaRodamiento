@@ -27,12 +27,20 @@ export class HomeComponent implements OnInit{
   rol!:string;
 
 
+
   constructor(private crud: crudService, private route:Router, @Inject(DOCUMENT) public document: Document, public auth: AuthService, private userService: UserServiceService){
   }
   ngOnInit(): void {
-    this.userService.getUserRoles().subscribe((roles) =>
-    this.rol = roles[0]
-    );
+    this.userService.getUserRoles().subscribe(roles =>{
+      for(let rol of roles){
+        console.log('rol' + rol)
+        if (rol == 'Admin'){
+          this.rol = rol;
+        }
+        
+        console.log( 'Official Rol' + this.rol);
+      }
+  });
     this.auth.isAuthenticated$.subscribe(isAuth =>{
       if(isAuth){
         this.authy = true;
